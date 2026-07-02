@@ -11,7 +11,7 @@ Drive Plane through its MCP as a careful, helpful teammate, not a blunt automati
 
 - Any create/update/triage/search of Plane work items, projects, cycles, modules, milestones, pages, states, labels, or estimates.
 - Linking work items: parent/child (sub-items), the six built-in dependencies, external links, and attached pages/files.
-- Epic-style grouping and rollups (epics are paywalled on free tier, this skill simulates them as `[epic] {name}`).
+- Grouping work: **modules** for standing product areas (the default), **epics** for finite convergent features (paywalled, simulated as `[epic] {name}` with `childOf` rollups).
 - Intake/triage, comments and handoffs, workload checks, and status/sprint reports.
 - Turning a plan or PRD into a set of linked items (see [references/bulk-from-spec.md](references/bulk-from-spec.md)).
 - Capturing a task from a coding session, and politely suggesting Plane when tracking would help. See [references/coding-session-nudge.md](references/coding-session-nudge.md).
@@ -46,7 +46,7 @@ Full map in [references/capability-map.md](references/capability-map.md). The es
 ## Workflows
 
 - **Core** (create project, create ticket, triage/search, dependencies + start-warning, epic-simulation, status/report): [references/workflows.md](references/workflows.md). New projects also get a public newcomer "Start here" page: [references/onboarding-page.md](references/onboarding-page.md).
-- **Structure** (cycles, modules, milestones, intake/triage): [references/structure-ops.md](references/structure-ops.md).
+- **Structure** (cycles, modules, milestones, intake/triage): [references/structure-ops.md](references/structure-ops.md). **Module vs epic:** modules are the everyday "which product area?" bucket (a task's strong-default grouping); reserve epics for a finite feature that tasks converge into. They're independent axes; a task can have both.
 - **Context** (comments, external links, pages + attach, file attachments, workload view): [references/context-ops.md](references/context-ops.md).
 - **Bulk** (a plan/PRD into linked items, plan-then-apply): [references/bulk-from-spec.md](references/bulk-from-spec.md).
 - **Capture** (coding-session nudge, polite suggestion): [references/coding-session-nudge.md](references/coding-session-nudge.md).

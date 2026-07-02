@@ -11,7 +11,7 @@ Every work item this skill creates turns a vague ask into something a teammate c
 - **Assignee**: a resolved member, or explicitly "unassigned" (stated to the user).
 - **Description**: sized to the task (below), passed as `description_html`.
 
-Add when they apply: `parent` (sub-item / epic child), `labels`, `start_date`/`target_date`, `estimate_point`.
+Add when they apply: a **module** (the product area it belongs to; strong default, assign after create with `manage_module_work_items`), `parent` (sub-item / epic child), `labels`, `start_date`/`target_date`, `estimate_point`.
 
 ## Description: adaptive, not a fixed form
 

@@ -9,20 +9,22 @@ New projects come up **private and fully featured**: enable every feature the fr
 1. **Create minimal:** `create_project(name, identifier)`. Adding `project_lead` or view flags at create can 400 while still creating the row, so keep it minimal.
 2. **Enable all features:** `update_project(project_id, project_lead=..., module_view=true, cycle_view=true, issue_views_view=true, page_view=true, intake_view=true)`. Turn on cycles, modules, views, pages, and intake by default. (Work-item types stay off; they're paywalled.)
 3. **Add the default estimate:** `create_project_estimate(project_id, name="Complexity", type="categories")`, then `create_project_estimate_points` with easy/medium/hard/very hard (see [structure-ops.md](structure-ops.md)).
-4. **Verify private:** re-read with `retrieve_project`, confirm `network` is `0`. Never set `2` (public) unless the user asks (guardrail 12).
-5. **Seed states if empty:** if `list_states` comes back empty (a half-created project), create the standard set (guardrail 11: confirm the set first).
-6. **Add the newcomer page:** create a public, read-only ("Start here") page so an invited teammate knows what to do (`is_locked=true`; see [onboarding-page.md](onboarding-page.md)). The MCP can't edit or delete a page later, so review the content before creating.
-7. **Echo:** the identifier, that it's private, which features are on, and that the Start-here page exists.
+4. **Offer to seed modules:** ask for the product's workstreams/areas (CLI, API, billing, docs…) and `create_module` for each, so tasks have standing buckets from day one. Skippable. These are the everyday grouping axis (see the module-vs-epic note in [structure-ops.md](structure-ops.md)).
+5. **Verify private:** re-read with `retrieve_project`, confirm `network` is `0`. Never set `2` (public) unless the user asks (guardrail 12).
+6. **Seed states if empty:** if `list_states` comes back empty (a half-created project), create the standard set (guardrail 11: confirm the set first).
+7. **Add the newcomer page:** create a public, read-only ("Start here") page so an invited teammate knows what to do (`is_locked=true`; see [onboarding-page.md](onboarding-page.md)). The MCP can't edit or delete a page later, so review the content before creating.
+8. **Echo:** the identifier, that it's private, which features are on, the seeded modules, and that the Start-here page exists.
 
 ## Create a ticket
 
 1. **Resolve the project.** `list_projects`, match the identifier. Hold its UUID.
 2. **Search for duplicates.** `search_work_items` on the key words; if structured, a PQL `list_work_items`. Surface matches by identifier; ask before proceeding if any look close.
-3. **Resolve state, assignee, labels.** `list_states`, `get_project_members` (filter bots), `list_labels`. No match for an assignee → unassigned, and say so.
-4. **Fill the template.** Context, Scope, Acceptance criteria (see [ticket-template.md](ticket-template.md)).
+3. **Resolve state, assignee, labels, module.** `list_states`, `get_project_members` (filter bots), `list_labels`, `list_modules`. No assignee match → unassigned, and say so. Pick the module the task belongs to (strong default); if none fits, leave it module-less rather than forcing one.
+4. **Fill the template.** Context, plus Scope/Acceptance when the task warrants them (see [ticket-template.md](ticket-template.md)).
 5. **Create.** `create_work_item` with title, project, state, priority, assignees, labels, parent (if any), `description_html`.
-6. **Verify.** If it errored, re-read by identifier before retrying. If it succeeded, confirm the fields you set are present.
-7. **Echo.** One line with the new identifier and key fields.
+6. **Assign the module** (if one fits): `manage_module_work_items(module_id, add_ids=[<new item UUID>])`. Modules are set after create, not in the create call.
+7. **Verify.** If it errored, re-read by identifier before retrying. If it succeeded, confirm the fields you set are present.
+8. **Echo.** One line with the new identifier and key fields, including the module.
 
 ## Triage / search
 
@@ -45,9 +47,9 @@ New projects come up **private and fully featured**: enable every feature the fr
 
 ## Epic-simulation
 
-Epics are paywalled; simulate them.
+Epics are paywalled; simulate them. First check it's actually an epic: **reserve epics for a finite feature that a set of tasks converge into, in an unlock order.** For "which area is this?" grouping, use a module instead (see the module-vs-epic note in [structure-ops.md](structure-ops.md)). If the grouping never *completes*, it's a module, not an epic.
 
-**Create an epic:** `create_work_item` with the title as `[epic] {name}`, then add the `epic` label (create it once with `create_label` if missing, confirming per guardrail 11). This item is the parent.
+**Create an epic:** `create_work_item` with the title as `[epic] {name}`, then add the `epic` label (create it once with `create_label` if missing, confirming per guardrail 11). This item is the parent. Give it a real done condition (its acceptance criteria) so it can actually close.
 
 **Attach a child:** create the child with `parent=<epic UUID>`, or move an existing item with `update_work_item(parent=...)`.
 

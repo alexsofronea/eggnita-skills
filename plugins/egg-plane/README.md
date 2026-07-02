@@ -10,7 +10,7 @@ Built and tuned for the **Plane free tier**: it knows what's paywalled (epics, c
 - **Search before creating**: surfaces likely duplicates by identifier before opening anything new.
 - **Track dependencies**: the six built-in Plane relations (blocking, blocked_by, start/finish before/after), and a warning before you start an item whose blocker is still open.
 - **Epic-simulation**: since epics are paywalled, it uses a `[epic] {name}` parent with `epic` label, children via `parent`, and PQL rollups (`childOf`).
-- **Sprint & structure**: cycles, modules, milestones, and intake/triage.
+- **Sprint & structure**: cycles, modules (standing product areas, the everyday grouping), milestones, and intake/triage. Knows when to use a module (a bucket that never completes) vs an epic (a finite feature that tasks converge into).
 - **Context**: comments and handoffs, external links (repo/PR/doc), attached pages, file attachments from a public URL, and a workload view before you assign more.
 - **Bulk from a spec**: turn a plan or PRD into a set of linked items, plan-then-apply with one approval.
 - **Onboard newcomers**: every new project it creates gets a public "Start here" page covering the Plane apps, the MCP, installing egg-plane, and how the team works.

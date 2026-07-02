@@ -2,6 +2,15 @@
 
 Sprint and grouping structures. All verified on the free tier. Every step obeys the guardrails; they're not repeated here.
 
+## Module vs epic: choose the right axis
+
+They answer different questions and are **independent** (a task can be in a module *and* under an epic):
+
+- **Module = a standing bucket.** "Which part of the product is this?" A viewing/filtering lens (CLI, API, billing, docs…). It never really *completes*; that area of work is ongoing. Modules have their own progress bars and can be dropped into cycles. This is the everyday categorization.
+- **Epic = a finite, convergent feature.** "These N tasks add up to one thing, and here's the order they unlock in." It has a *done* state and earns the parent-child + `blocked_by` machinery.
+
+The rule of thumb: **default to a module** for grouping. **Reserve epics** for the handful of cases where smaller tasks genuinely roll up into one feature that will finish. Don't use an epic as a workstream bucket (it never converges) and don't use a module for a finite feature (it can't express the unlock order).
+
 ## Cycles (sprints)
 
 One active cycle at a time (parallel cycles are paywalled). A cycle whose `end_date` is in the past is treated as **completed** and locks.
@@ -15,12 +24,18 @@ One active cycle at a time (parallel cycles are paywalled). A cycle whose `end_d
 
 **Sprint lifecycle order (verified):** create → add items while active/upcoming → `complete_cycle` → `transfer_cycle_work_items` to carry leftovers into the next cycle. You cannot add to or transfer from a cycle in the wrong state.
 
-## Modules (feature groupings)
+## Modules (standing product areas)
+
+Modules are the everyday categorization: the product's workstreams/areas. Treat them like a controlled set, similar to labels (guardrail 11): assign to an existing one, and create a new module only with the user's confirmation.
 
 - **Create:** `create_module(project_id, name, description, status, lead)`. Status: `backlog`/`planned`/`in-progress`/`paused`/`completed`/`cancelled`.
 - **Add / remove items:** `manage_module_work_items(module_id, add_ids, remove_ids)`.
 - **List / scope:** `list_modules`, or PQL `module = "<uuid>"`.
 - **Progress:** `count_work_items(group_by="state__group", pql='module = "<uuid>"')`.
+
+**Assign a module to most tasks (strong default, not required).** When a task clearly belongs to an existing module, put it there so the board stays browsable by area. If none fits, leave it module-less rather than forcing a bad fit or spawning a module without asking.
+
+**Seed modules at project setup.** When creating a project, offer to define its initial modules (the product's workstreams/areas) so tasks have buckets from day one. Skippable; see the project-creation workflow.
 
 ## Milestones
 
