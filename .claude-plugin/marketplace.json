@@ -6,5 +6,12 @@
     "name": "Eggnita",
     "url": "https://github.com/alexsofronea/eggnita-skills"
   },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "egg-plane",
+      "source": "./plugins/egg-plane",
+      "description": "Manage Plane projects and tasks through the Plane MCP with strict guardrails (resolve IDs, search before create, verify after write, confirm before destroy). Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow.",
+      "keywords": ["plane", "project-management", "task-management", "mcp"]
+    }
+  ]
 }

@@ -8,7 +8,7 @@ This repo is a **Claude Code plugin marketplace**. Each skill ships as its own p
 
 | Plugin | What it does |
 |--------|--------------|
-| _(none yet)_ | The first skill is on its way. This table updates as skills land. |
+| [`egg-plane`](plugins/egg-plane/) | Manage Plane projects and tasks through the Plane MCP with strict guardrails (resolve IDs, search before create, verify after write, confirm before destroy). Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow. |
 
 ## Requirements
 
