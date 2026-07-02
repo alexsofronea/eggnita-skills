@@ -1,0 +1,10 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "eggnita-skills",
+  "description": "Eggnita's shared Claude Code skills, packaged as installable plugins. Every plugin is named egg-{name}.",
+  "owner": {
+    "name": "Eggnita",
+    "url": "https://github.com/alexsofronea/eggnita-skills"
+  },
+  "plugins": []
+}

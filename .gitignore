@@ -1,0 +1,46 @@
+# === Secrets & credentials — never commit ===
+.env
+.env.*
+!.env.example
+*.env
+secrets.*
+*.secret
+*.secrets
+credentials.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+id_rsa*
+id_ed25519*
+*.der
+*.crt
+!ca-bundle.crt
+.netrc
+.npmrc
+.pypirc
+*_token
+*.token
+auth.json
+service-account*.json
+gha-creds-*.json
+
+# === Local Claude Code state ===
+.claude/settings.local.json
+.claude/*.local.json
+
+# === Dependencies & build output ===
+node_modules/
+dist/
+build/
+.cache/
+*.log
+
+# === OS & editor cruft ===
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
