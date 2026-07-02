@@ -12,7 +12,7 @@ Skills should be useful to anyone, with Eggnita's private context kept out. If a
 ## Safety nets (not guarantees)
 
 - **`.gitignore`** ignores common secret-bearing files.
-- **`.githooks/pre-commit`** blocks commits whose staged changes match known secret patterns. Enable it with `git config core.hooksPath .githooks` (once per clone).
+- **`.harneala/hooks/secret-scan.sh`** blocks commits whose staged changes match known secret patterns. It runs as a git pre-commit hook installed by `/harneala:init feature` (once per clone). Extend its `PATTERNS` when you hit a secret shape it misses.
 
 Both are backstops. The primary control is reviewing your own diffs before committing.
 

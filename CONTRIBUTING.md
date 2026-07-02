@@ -1,6 +1,6 @@
 # Contributing
 
-**Eggnita team only.** These are internal tools. The repo may be public so others can read and install the skills, but we don't accept outside contributions — external pull requests and issues will be closed unmerged. This guide is for people inside Eggnita.
+**Eggnita team only.** These are internal tools. The repo may be public so others can read and install the skills, but we don't accept outside contributions; external pull requests and issues will be closed unmerged. This guide is for people inside Eggnita.
 
 How to add and maintain skills in this repo. Read this before you touch anything.
 
@@ -14,13 +14,13 @@ How to add and maintain skills in this repo. Read this before you touch anything
 
 ## First-time setup
 
-Enable the secret-scanning pre-commit hook (tracked in this repo, but Git needs to be told to use it):
+This repo runs the [harneala](.) feature-tier harness. Run its init once per clone:
 
 ```bash
-git config core.hooksPath .githooks
+/harneala:init feature
 ```
 
-Do this once per clone.
+That installs the git pre-commit hook (secret-scan + guardrails) and wires the reflect loop. It's idempotent, so running it again is safe. See `AGENTS.md` for the build workflow and `constitution.md` for the project invariants.
 
 ## Adding a new skill
 

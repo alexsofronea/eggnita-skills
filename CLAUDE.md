@@ -4,7 +4,16 @@ Rules for any agent working in this repo. These are not optional.
 
 ## What this repo is
 
-A Claude Code **plugin marketplace** of shared Eggnita skills. Each skill is a plugin named `egg-{name}` under `plugins/egg-{name}/`, registered in `.claude-plugin/marketplace.json`. It may become public for read/install, but it's an internal Eggnita project — no outside contributions.
+A Claude Code **plugin marketplace** of shared Eggnita skills. Each skill is a plugin named `egg-{name}` under `plugins/egg-{name}/`, registered in `.claude-plugin/marketplace.json`. It may become public for read/install, but it's an internal Eggnita project with no outside contributions.
+
+## The harness (read these too)
+
+This repo runs the [harneala](https://github.com/) feature-tier harness. Two files govern how you work here, and this file points to both:
+
+- **`AGENTS.md`**: the build workflow, including the harneala skill chain (align, spec, build, hand off), the reflect loop, and how to orient (`/harneala:orient`) and right-size (`/harneala:right-size`) a change. Read it before starting any non-trivial work.
+- **`constitution.md`**: the project invariants (EARS-style). Treat them as binding; don't violate one without promoting a change through `/harneala:promote`.
+
+`CLAUDE.md` (this file) holds Eggnita **repo policy**; `AGENTS.md` holds the **workflow**. When they overlap, both apply.
 
 ## Hard rules
 
@@ -18,7 +27,8 @@ A Claude Code **plugin marketplace** of shared Eggnita skills. Each skill is a p
 
 - `.claude-plugin/marketplace.json`: the marketplace manifest (list of plugins).
 - `plugins/egg-{name}/`: one plugin per skill, each with its own `README.md`.
-- `.githooks/pre-commit`: secret scanner. Enable per clone with `git config core.hooksPath .githooks`.
+- `.harneala/hooks/`: the harneala guardrail scripts (secret-scan, skip-guard, coverage-ratchet). Installed as a git pre-commit hook by `/harneala:init feature` (run once per clone).
+- `AGENTS.md` / `constitution.md`: the harness workflow and invariants (see above).
 - `CONTRIBUTING.md`: the full how-to for adding a skill. Follow it.
 
 ## Before you finish
