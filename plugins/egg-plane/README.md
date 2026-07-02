@@ -13,6 +13,7 @@ Built and tuned for the **Plane free tier**: it knows what's paywalled (epics, c
 - **Sprint & structure**: cycles, modules, milestones, and intake/triage.
 - **Context**: comments and handoffs, external links (repo/PR/doc), attached pages, file attachments from a public URL, and a workload view before you assign more.
 - **Bulk from a spec**: turn a plan or PRD into a set of linked items, plan-then-apply with one approval.
+- **Onboard newcomers**: every new project it creates gets a public "Start here" page covering the Plane apps, the MCP, installing egg-plane, and how the team works.
 - **Capture & suggest**: when work in Claude Code / Codex / Cursor surfaces a bug, follow-up, or blocker, it searches Plane, shows what exists, and helps you decide, link, add a child, create new, or set a relation. Proactive but gated and polite; it never auto-creates and never enforces.
 - **Report without dumps**: `count_work_items` grouped by state or assignee for a project or cycle.
 
@@ -50,6 +51,7 @@ skills/egg-plane/
     ├── structure-ops.md            # cycles, modules, milestones, intake/triage
     ├── context-ops.md              # comments, links, pages, attachments, workload
     ├── bulk-from-spec.md           # a plan/PRD into linked items
+    ├── onboarding-page.md          # the public "Start here" page for new projects
     └── coding-session-nudge.md     # capturing tasks while coding, politely
 ```
 

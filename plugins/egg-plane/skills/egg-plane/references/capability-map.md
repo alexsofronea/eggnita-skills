@@ -15,7 +15,7 @@ What the Plane MCP can and can't do on the free tier, verified by probing a live
 | Search & filter | `search_work_items`, `list_work_items` (PQL), `count_work_items` | `get_pql_reference` for syntax. |
 | Cycles | `create_cycle` (needs `owned_by`), `list_cycles`, `list_cycle_work_items`, `manage_cycle_work_items`, `complete_cycle`, `transfer_cycle_work_items` | One active cycle at a time. Lifecycle order: add while active/upcoming → `complete_cycle` → `transfer` leftovers. `transfer` needs the source completed and moves all items (bulk, confirm). |
 | Modules | `create_module`, `list_modules`, `manage_module_work_items` | |
-| Pages | `create_page`, `retrieve_page`, `list_pages`, `attach_page_to_work_item` | Read/write. A page can be attached to a work item. |
+| Pages | `create_page`, `retrieve_page`, `list_pages`, `attach_page_to_work_item`, `detach_page_from_work_item` | Create + read only: **no `update_page`, `delete_page`, or unlock tool**. `access=0` = public, `is_locked=true` = read-only, both settable **only at creation**. Edits/deletes are manual in the Plane UI. |
 | Estimates | `create_project_estimate`, `create_project_estimate_points`, `list_project_estimate_points`, `update_work_item(estimate_point=...)`, `delete_project_estimate` | Standard is **categories: easy/medium/hard/very hard**. One estimate per project (409 on a second); switch scales by deleting first. |
 | Milestones | `list_milestones`, `create_milestone` | Verified: create + list work. |
 | Comments | `list_work_item_comments`, `create_work_item_comment`, `delete_work_item_comment` | HTML body; `access` INTERNAL/EXTERNAL. Mention a person with a `<mention-component entity_identifier="UUID" entity_name="user_mention">` node, not plain `@text` (verified). |

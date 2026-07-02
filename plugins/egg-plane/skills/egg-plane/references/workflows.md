@@ -11,7 +11,8 @@ New projects come up **private and fully featured**: enable every feature the fr
 3. **Add the default estimate:** `create_project_estimate(project_id, name="Complexity", type="categories")`, then `create_project_estimate_points` with easy/medium/hard/very hard (see [structure-ops.md](structure-ops.md)).
 4. **Verify private:** re-read with `retrieve_project`, confirm `network` is `0`. Never set `2` (public) unless the user asks (guardrail 12).
 5. **Seed states if empty:** if `list_states` comes back empty (a half-created project), create the standard set (guardrail 11: confirm the set first).
-6. **Echo:** the identifier, that it's private, and which features are on.
+6. **Add the newcomer page:** create a public, read-only ("Start here") page so an invited teammate knows what to do (`is_locked=true`; see [onboarding-page.md](onboarding-page.md)). The MCP can't edit or delete a page later, so review the content before creating.
+7. **Echo:** the identifier, that it's private, which features are on, and that the Start-here page exists.
 
 ## Create a ticket
 

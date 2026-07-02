@@ -45,7 +45,7 @@ Full map in [references/capability-map.md](references/capability-map.md). The es
 
 ## Workflows
 
-- **Core** (create project, create ticket, triage/search, dependencies + start-warning, epic-simulation, status/report): [references/workflows.md](references/workflows.md).
+- **Core** (create project, create ticket, triage/search, dependencies + start-warning, epic-simulation, status/report): [references/workflows.md](references/workflows.md). New projects also get a public newcomer "Start here" page: [references/onboarding-page.md](references/onboarding-page.md).
 - **Structure** (cycles, modules, milestones, intake/triage): [references/structure-ops.md](references/structure-ops.md).
 - **Context** (comments, external links, pages + attach, file attachments, workload view): [references/context-ops.md](references/context-ops.md).
 - **Bulk** (a plan/PRD into linked items, plan-then-apply): [references/bulk-from-spec.md](references/bulk-from-spec.md).
