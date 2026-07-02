@@ -13,15 +13,15 @@ What the Plane MCP can and can't do on the free tier, verified by probing a live
 | Sub-items | `create_work_item(parent=...)`, `update_work_item(parent=...)` | Roll up with PQL `childOf("EGG-1")`. |
 | Dependencies | `create_work_item_relation`, `list_work_item_relations` | Only the six built-ins (below). Auto-bidirectional. |
 | Search & filter | `search_work_items`, `list_work_items` (PQL), `count_work_items` | `get_pql_reference` for syntax. |
-| Cycles | `create_cycle` (needs `owned_by`), `list_cycles`, `manage_cycle_work_items`, `complete_cycle`, `transfer_cycle_work_items` | One active cycle at a time. `transfer_cycle_work_items` is destructive (confirm). |
+| Cycles | `create_cycle` (needs `owned_by`), `list_cycles`, `list_cycle_work_items`, `manage_cycle_work_items`, `complete_cycle`, `transfer_cycle_work_items` | One active cycle at a time. Lifecycle order: add while active/upcoming → `complete_cycle` → `transfer` leftovers. `transfer` needs the source completed and moves all items (bulk, confirm). |
 | Modules | `create_module`, `list_modules`, `manage_module_work_items` | |
 | Pages | `create_page`, `retrieve_page`, `list_pages`, `attach_page_to_work_item` | Read/write. A page can be attached to a work item. |
 | Estimates | `create_project_estimate`, `create_project_estimate_points`, `list_project_estimate_points`, `update_work_item(estimate_point=...)`, `delete_project_estimate` | Standard is **categories: easy/medium/hard/very hard**. One estimate per project (409 on a second); switch scales by deleting first. |
 | Milestones | `list_milestones`, `create_milestone` | Verified: create + list work. |
-| Comments | `list_work_item_comments`, `create_work_item_comment` | HTML body; `access` INTERNAL/EXTERNAL. Use for status/handoffs. |
+| Comments | `list_work_item_comments`, `create_work_item_comment`, `delete_work_item_comment` | HTML body; `access` INTERNAL/EXTERNAL. Mention a person with a `<mention-component entity_identifier="UUID" entity_name="user_mention">` node, not plain `@text` (verified). |
 | External links | `create_work_item_link`, `list_work_item_links` | Attach a URL (repo, PR, doc) to an item. |
 | Attachments | `upload_work_item_attachment_from_url`, `read_work_item_attachment` | Source URL must be public. Verified: uploaded a file from a raw GitHub URL. |
-| Intake | `list_intake_work_items`, `create_intake_work_item`, `update_intake_work_item`, `retrieve_intake_work_item`, `delete_intake_work_item` | Triage queue. `create_intake_work_item` takes a `data` dict. |
+| Intake | `list_intake_work_items`, `create_intake_work_item`, `update_intake_work_item`, `retrieve_intake_work_item`, `delete_intake_work_item` | Triage queue. Create with `data={"issue": {...fields}}`. Triage via `update_intake_work_item(status=...)`: `1` accept (→ Backlog), `-1` decline, `0` snooze, `2` duplicate. |
 | Members | `get_workspace_members`, `get_project_members` | **Returns bots.** Filter `is_bot = true`. |
 | Projects | `create_project`, `update_project`, `retrieve_project` | New projects default to `network: 0` (private). Keep it that way, and enable all features on setup (cycles, modules, views, pages, intake + a categories estimate). |
 
@@ -58,3 +58,4 @@ Also off (feature flags): `workflows` (state-transition rules), `parallel_cycles
 3. **Members include bots.** Filter `is_bot`.
 4. **Sparse fields return null when not requested.** Null means "not requested," not "empty." Name `description_html`, `type_id`, `state`, `assignees`, `labels` explicitly when you need them.
 5. **Paginated responses truncate.** `list_*` returns `next_cursor` / `next_page_results`. When more pages exist, either page through or tell the user the result is truncated. Never imply a partial list is the whole set.
+6. **Cycle state gates its operations.** A past-`end_date` cycle is "completed" and locked: you can't add items to it, and you can't `complete_cycle` it again. `transfer_cycle_work_items` needs the source completed first. So the only valid order is add → complete → transfer.

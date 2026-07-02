@@ -4,14 +4,16 @@ Sprint and grouping structures. All verified on the free tier. Every step obeys 
 
 ## Cycles (sprints)
 
-One active cycle at a time (parallel cycles are paywalled).
+One active cycle at a time (parallel cycles are paywalled). A cycle whose `end_date` is in the past is treated as **completed** and locks.
 
 - **Create:** `create_cycle(project_id, name, owned_by=<member UUID>, start_date, end_date)`. Owner is required; resolve a member first.
-- **Add / remove items:** `manage_cycle_work_items(cycle_id, add_ids=[...], remove_ids=[...])`. Incremental, per guardrail 6.
-- **List / scope:** `list_cycles`, or PQL `cycle IN activeCycle()`.
-- **Complete:** `complete_cycle(cycle_id)`.
-- **Carryover:** `transfer_cycle_work_items` moves unfinished items to another cycle. This is a **bulk op, confirm first** and list the identifiers being moved (guardrail 5).
+- **Add / remove items:** `manage_cycle_work_items(cycle_id, add_ids=[...], remove_ids=[...])`. Incremental, per guardrail 6. Only works on an **active or upcoming** cycle; a completed one 400s ("no new issues can be added").
+- **List / scope:** `list_cycles`, or PQL `cycle IN activeCycle()`. `list_cycle_work_items(cycle_id)` lists a cycle's items.
+- **Complete:** `complete_cycle(cycle_id)` sets `end_date` to today. Only on a not-yet-completed cycle; calling it on an already-completed one 400s.
+- **Carryover:** `transfer_cycle_work_items(cycle_id, new_cycle_id)` moves **all** items from the source to the target. The **source must already be completed** ("the old cycle is not completed yet" otherwise). This is a bulk op: confirm first and name the target (guardrail 5).
 - **Health snapshot:** `count_work_items(group_by="state__group", pql='cycle IN activeCycle()')`, plus an unassigned count (`hasNoAssignee()`).
+
+**Sprint lifecycle order (verified):** create → add items while active/upcoming → `complete_cycle` → `transfer_cycle_work_items` to carry leftovers into the next cycle. You cannot add to or transfer from a cycle in the wrong state.
 
 ## Modules (feature groupings)
 
@@ -40,12 +42,14 @@ Worked example: EGG's "Complexity" estimate with easy/medium/hard/very hard; EGG
 
 ## Intake / triage
 
-The intake queue is the "not yet accepted into the backlog" list. The feature is enabled on the free tier.
+The intake queue is the "not yet accepted into the backlog" list. Enabled on the free tier, verified end to end. New intake items land in a **Triage** state with status `-2` (pending).
 
 - **List the queue:** `list_intake_work_items(project_id)`.
-- **Add to intake:** `create_intake_work_item(project_id, data={...})`. `data` carries the work item fields.
-- **Read / update / remove:** `retrieve_intake_work_item`, `update_intake_work_item`, `delete_intake_work_item` (delete is destructive, confirm).
-- **Accept:** promote an intake item into the backlog by updating it into a normal state / project item, then echo the new identifier.
-- **Reject:** decline it, and say why in one line so the record is clear.
+- **Add to intake:** `create_intake_work_item(project_id, data={"issue": {"name": "...", "priority": "...", "description_html": "..."}})`. The work item fields go **inside an `issue` object** (a bare `data` without `issue` 400s). The response's `issue` field is the work item UUID you use for the triage calls below.
+- **Read / remove:** `retrieve_intake_work_item(work_item_id=<issue UUID>)`, `delete_intake_work_item(work_item_id=<issue UUID>)` (destructive, confirm).
+- **Triage** with `update_intake_work_item(work_item_id=<issue UUID>, status=...)`:
+  - `1` **accepted** → converts it to an active work item (moves Triage → Backlog). Verified.
+  - `-1` **declined** → stays in Triage as declined. Verified.
+  - `0` **snoozed** (requires `snoozed_till` date), `2` **duplicate** (requires `duplicate_to` work item UUID), `-2` pending.
 
-Triage flow: list the queue, summarize each item by identifier, and for each recommend accept (with a state/assignee) or reject (with a reason). Act only on the user's call.
+Triage flow: list the queue, summarize each item by identifier, and for each recommend accept (with a follow-up state/assignee) or decline (with a one-line reason). Act only on the user's call.

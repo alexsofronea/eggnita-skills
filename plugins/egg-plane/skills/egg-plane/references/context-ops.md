@@ -5,8 +5,18 @@ Ways to attach context and read the team's load. All verified on the free tier. 
 ## Comments (status and handoffs)
 
 - **Add:** `create_work_item_comment(project_id, work_item_id, comment_html, access="INTERNAL")`. Use for status updates, decisions, and session handoffs so the item carries its own history.
-- **Read:** `list_work_item_comments(project_id, work_item_id)`.
+- **Read:** `list_work_item_comments(project_id, work_item_id)`. **Remove:** `delete_work_item_comment(project_id, work_item_id, comment_id)`.
 - Keep comments factual and identifier-linked ("Blocked on EGG-2; picking back up when it's Done"). A comment is not a substitute for a real relation or a state change; use it alongside them.
+
+### Mentioning people (@)
+
+Plain `@name` text does **nothing**; it's stored as literal characters and notifies no one (verified). To actually tag someone, resolve their member UUID (`get_project_members`, filter bots) and emit a mention **node** in `comment_html`:
+
+```html
+<mention-component entity_identifier="<MEMBER-UUID>" entity_name="user_mention"></mention-component>
+```
+
+Verified live: this renders as a real highlighted `@display_name` mention and notifies the person; plain `@display_name` does not. So the rule is guardrail 1 again: resolve the UUID, never type a raw handle. This works in comments and in `description_html`.
 
 ## External links
 
