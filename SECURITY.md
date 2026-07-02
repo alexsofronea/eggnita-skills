@@ -1,6 +1,6 @@
 # Security
 
-This repository may become public. Treat everything in it as if it already is.
+This repository is **public**. Everything in it, including full git history, is world-visible. Treat every commit accordingly.
 
 ## What never goes in this repo
 
@@ -22,39 +22,33 @@ Both are backstops. The primary control is reviewing your own diffs before commi
 2. Remove it from history (e.g. `git filter-repo` or BFG) if it was pushed, and force-push with the team's coordination.
 3. Tell whoever owns the credential.
 
-## Going public: the checklist
+## Public-repo posture (applied)
 
-While the repo is **private**, contributions are locked down by visibility alone: no outsider can see, fork, open issues, or open PRs. Branch protection also isn't available on a private repo under the free GitHub plan. So there's nothing to enforce until the day it flips public. Run this checklist at that moment.
+The repo is public so any team member can install the skills without being added as a collaborator. What's in place:
 
-1. **Scrub first.** Before flipping, re-read "What never goes in this repo" and skim the history for anything that shouldn't be seen once public: `git log -p | grep -iE 'secret|token|password|api[_-]?key'`. History is visible the instant the repo is public.
+- **`main` is protected** by an active ruleset (`protect-main`) that blocks force-pushes and branch deletion. Direct pushes to `main` still work; this is the light guard we chose. Outsiders have no write access, so their forks and PRs can never merge without a maintainer.
+- **Issues stay enabled** for the team. On a public repo it's all-or-nothing (you can't restrict issue creation to the org), so leave them on and moderate rather than disabling.
+- **Contributions are Eggnita-only.** README and CONTRIBUTING say so. GitHub can't stop an outsider from *opening* a PR or issue, so the plan is: close outside PRs unmerged, moderate outsider issues.
 
-2. **Flip to public.**
+To re-apply the branch protection (e.g. on a fresh clone of the setup or after changes):
 
-   ```bash
-   gh repo edit alexsofronea/eggnita-skills --visibility public --accept-visibility-change-consequences
-   ```
+```bash
+gh api -X POST repos/alexsofronea/eggnita-skills/rulesets \
+  -H "Accept: application/vnd.github+json" \
+  --input - <<'JSON'
+{
+  "name": "protect-main",
+  "target": "branch",
+  "enforcement": "active",
+  "conditions": { "ref_name": { "include": ["~DEFAULT_BRANCH"], "exclude": [] } },
+  "rules": [ { "type": "deletion" }, { "type": "non_fast_forward" } ]
+}
+JSON
+```
 
-3. **Protect `main` immediately.** This blocks force-pushes and branch deletion (it becomes free once public). Direct pushes to `main` still work; this is the light guard we chose.
+Optional, if drive-by noise appears: temporarily limit interactions to collaborators (up to 6 months) with `gh api -X PUT repos/alexsofronea/eggnita-skills/interaction-limits -f limit=collaborators_only`.
 
-   ```bash
-   gh api -X POST repos/alexsofronea/eggnita-skills/rulesets \
-     -H "Accept: application/vnd.github+json" \
-     --input - <<'JSON'
-   {
-     "name": "protect-main",
-     "target": "branch",
-     "enforcement": "active",
-     "conditions": { "ref_name": { "include": ["~DEFAULT_BRANCH"], "exclude": [] } },
-     "rules": [ { "type": "deletion" }, { "type": "non_fast_forward" } ]
-   }
-   JSON
-   ```
-
-4. **Set expectations on contributions.** These are internal tools; outside PRs and issues won't be merged or actioned. The README and CONTRIBUTING already say so. GitHub can't stop outsiders from *opening* PRs/issues on a public repo, so plan to triage:
-   - Close outside PRs unmerged. `main` protection guarantees nothing lands without a maintainer.
-   - Moderate outsider issues. To dampen drive-by noise, temporarily limit interactions (up to 6 months): `gh api -X PUT repos/alexsofronea/eggnita-skills/interaction-limits -f limit=collaborators_only`.
-
-5. **Keep issues enabled** so the Eggnita team keeps using them. On a public repo it's all-or-nothing (can't restrict issue creation to the org), so leave them on and moderate rather than disabling.
+Since history is now public, the "scrub before exposing" step already ran clean. Keep it in mind for anything that could accidentally add a secret later: the pre-commit scanner is the first line, your own diff review the second.
 
 ## Reporting
 

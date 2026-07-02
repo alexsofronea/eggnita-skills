@@ -4,7 +4,7 @@ Rules for any agent working in this repo. These are not optional.
 
 ## What this repo is
 
-A Claude Code **plugin marketplace** of shared Eggnita skills. Each skill is a plugin named `egg-{name}` under `plugins/egg-{name}/`, registered in `.claude-plugin/marketplace.json`. It may become public for read/install, but it's an internal Eggnita project with no outside contributions.
+A Claude Code **plugin marketplace** of shared Eggnita skills. Each skill is a plugin named `egg-{name}` under `plugins/egg-{name}/`, registered in `.claude-plugin/marketplace.json`. It's public for read/install, but an internal Eggnita project with no outside contributions.
 
 ## The harness (read these too)
 

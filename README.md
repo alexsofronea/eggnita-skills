@@ -48,10 +48,10 @@ Once a plugin is installed, its skill activates the way any Claude Code skill do
 
 ## Contributing
 
-These are Eggnita's internal tools. The repo may be public so anyone can read and install the skills, but **contributions are Eggnita-only**; outside pull requests and issues won't be accepted.
+These are Eggnita's internal tools. The repo is public so anyone can read and install the skills, but **contributions are Eggnita-only**; outside pull requests and issues won't be accepted.
 
 If you're on the Eggnita team, read [CONTRIBUTING.md](CONTRIBUTING.md) first. It covers the `egg-{name}` convention, the folder layout, how to register a new plugin in the marketplace, and the rule that documentation ships in the same change as the code.
 
 ## Security
 
-This repo may become public. Never commit secrets, and keep internal Eggnita specifics out of skills. A pre-commit hook scans for secrets as a safety net. See [SECURITY.md](SECURITY.md).
+This repo is public. Never commit secrets, and keep internal Eggnita specifics out of skills. A pre-commit hook scans for secrets as a safety net. See [SECURITY.md](SECURITY.md).

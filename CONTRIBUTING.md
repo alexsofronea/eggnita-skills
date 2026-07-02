@@ -1,6 +1,6 @@
 # Contributing
 
-**Eggnita team only.** These are internal tools. The repo may be public so others can read and install the skills, but we don't accept outside contributions; external pull requests and issues will be closed unmerged. This guide is for people inside Eggnita.
+**Eggnita team only.** These are internal tools. The repo is public so others can read and install the skills, but we don't accept outside contributions; external pull requests and issues will be closed unmerged. This guide is for people inside Eggnita.
 
 How to add and maintain skills in this repo. Read this before you touch anything.
 
@@ -41,10 +41,11 @@ That installs the git pre-commit hook (secret-scan + guardrails) and wires the r
    ```json
    {
      "name": "egg-<name>",
-     "description": "One clear sentence: what this skill does and when to reach for it.",
-     "version": "0.1.0"
+     "description": "One clear sentence: what this skill does and when to reach for it."
    }
    ```
+
+   **Do not add a `version` field.** With no version, Claude Code uses the marketplace repo's git commit SHA as the version, so every push to `main` is automatically the latest and `/plugin update` always picks it up. A pinned `version` would freeze existing installs until you bumped it by hand, the opposite of what we want.
 
 3. **Write the skill** in `skills/egg-<name>/SKILL.md` with YAML frontmatter (`name`, `description`). The `description` is what Claude uses to decide when to load the skill, so make it specific about *when* to use it.
 

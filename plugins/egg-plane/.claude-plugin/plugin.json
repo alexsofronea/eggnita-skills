@@ -1,6 +1,5 @@
 {
   "name": "egg-plane",
   "description": "Manage Plane projects and tasks through the Plane MCP with strict guardrails: resolve IDs (never guess), search before create, verify after write, confirm before destroy. Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow.",
-  "version": "0.1.0",
   "keywords": ["plane", "project-management", "task-management", "mcp", "eggnita"]
 }
