@@ -34,6 +34,12 @@ Built and tuned for the **Plane free tier**: it knows what's paywalled (epics, c
 
 Ask for anything Plane-shaped and the skill activates: "create a ticket for X", "what's blocking EGG-3?", "log this to Plane", "how's the EGG-1 epic doing?", "turn this plan into tickets". It resolves the project first, then follows its guardrails on every action.
 
+## Bundled skill: egg-hatch
+
+The plugin also ships **egg-hatch**, a scoped sub-skill that scaffolds a new product's setup checklist into Plane. Ask for it by name ("hatch this project", "run the new-product checklist") or accept it when the agent offers it after creating a project; it never runs automatically.
+
+It surveys the product's context, then creates only the relevant tasks, grouped into one module per domain (domains/email, engineering, analytics, billing, design, SEO/AEO/GEO discoverability, paid ads, support, team, working instructions) and prioritized with Plane's real priorities. It skips what doesn't apply, marks security items as an enforced overlay, and stays provider-neutral (it names top-player examples or asks your preferred stack, never forcing one). It files the tracking tasks; it doesn't build the artifacts itself. See `skills/egg-hatch/SKILL.md`.
+
 ## The guardrails (why this exists)
 
 Resolve-never-guess-IDs · search-before-create · verify-after-write · echo-after-write-with-IDs · confirm-before-destroy/bulk · incremental-over-replace · adaptive-ticket · PQL-not-dumps-flag-truncation · real-relations-by-ID · free-tier-aware · gated-taxonomy · projects-stay-private · suggest-politely-never-enforce. The full set with examples lives in `skills/egg-plane/references/guardrails.md`.
@@ -41,19 +47,28 @@ Resolve-never-guess-IDs · search-before-create · verify-after-write · echo-af
 ## How it's organized
 
 ```
-skills/egg-plane/
-├── SKILL.md                        # router + always-on guardrails
-└── references/
-    ├── capability-map.md           # free-tier: what works, what's paywalled, substitutes
-    ├── guardrails.md               # the rules, in full, with examples
-    ├── pql-cookbook.md             # named queries (the "views" substitute)
-    ├── ticket-template.md          # the adaptive ticket shape
-    ├── workflows.md                # core: project, ticket, triage, dependencies, epic, report
-    ├── structure-ops.md            # cycles, modules, milestones, intake/triage
-    ├── context-ops.md              # comments, links, pages, attachments, workload
-    ├── bulk-from-spec.md           # a plan/PRD into linked items
-    ├── onboarding-page.md          # the public "Start here" page for new projects
-    └── coding-session-nudge.md     # capturing tasks while coding, politely
+skills/
+├── egg-plane/                      # the core Plane-management skill
+│   ├── SKILL.md                    # router + always-on guardrails
+│   └── references/
+│       ├── capability-map.md       # free-tier: what works, what's paywalled, substitutes
+│       ├── guardrails.md           # the rules, in full, with examples
+│       ├── pql-cookbook.md         # named queries (the "views" substitute)
+│       ├── ticket-template.md      # the adaptive ticket shape
+│       ├── workflows.md            # core: project, ticket, triage, dependencies, epic, report
+│       ├── structure-ops.md        # cycles, modules, milestones, intake/triage
+│       ├── context-ops.md          # comments, links, pages, attachments, workload
+│       ├── bulk-from-spec.md       # a plan/PRD into linked items
+│       ├── onboarding-page.md      # the public "Start here" page for new projects
+│       └── coding-session-nudge.md # capturing tasks while coding, politely
+└── egg-hatch/                      # scoped sub-skill: scaffold a new product's checklist
+    ├── SKILL.md                    # router + scoped-invocation + principles
+    └── references/
+        ├── build-flow.md           # the 8-step execution
+        ├── survey.md               # the product-context interview + answer mapping
+        ├── universal-core.md       # the always-offer core items
+        ├── modules.md              # the full domain module catalog
+        └── overlays.md             # product-type overlays + the security overlay
 ```
 
 ## Free-tier notes

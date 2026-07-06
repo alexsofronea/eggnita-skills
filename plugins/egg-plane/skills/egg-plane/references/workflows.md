@@ -6,14 +6,15 @@ Step-by-step for the core tasks. Every step obeys the guardrails; they're not re
 
 New projects come up **private and fully featured**: enable every feature the free tier allows so nothing has to be turned on later.
 
-1. **Create minimal:** `create_project(name, identifier)`. Adding `project_lead` or view flags at create can 400 while still creating the row, so keep it minimal.
-2. **Enable all features:** `update_project(project_id, project_lead=..., module_view=true, cycle_view=true, issue_views_view=true, page_view=true, intake_view=true)`. Turn on cycles, modules, views, pages, and intake by default. (Work-item types stay off; they're paywalled.)
+1. **Create minimal, with a description:** `create_project(name, identifier, description="<one line: what this product is>")`. Always give a short project description; a new project should never be description-less. Adding `project_lead` or view flags at create can 400 while still creating the row, so keep the rest minimal.
+2. **Enable features and lock privacy:** `update_project(project_id, network=0, project_lead=..., module_view=true, cycle_view=true, issue_views_view=true, page_view=true, intake_view=true)`. Set `network=0` explicitly: a new project can come up `network: 2` (public), so never assume it's private. Turn on cycles, modules, views, pages, and intake. (Work-item types stay off; they're paywalled.)
 3. **Add the default estimate:** `create_project_estimate(project_id, name="Complexity", type="categories")`, then `create_project_estimate_points` with easy/medium/hard/very hard (see [structure-ops.md](structure-ops.md)).
 4. **Offer to seed modules:** ask for the product's workstreams/areas (CLI, API, billing, docs…) and `create_module` for each, so tasks have standing buckets from day one. Skippable. These are the everyday grouping axis (see the module-vs-epic note in [structure-ops.md](structure-ops.md)).
 5. **Verify private:** re-read with `retrieve_project`, confirm `network` is `0`. Never set `2` (public) unless the user asks (guardrail 12).
 6. **Seed states if empty:** if `list_states` comes back empty (a half-created project), create the standard set (guardrail 11: confirm the set first).
 7. **Add the newcomer page:** create a public, read-only ("Start here") page so an invited teammate knows what to do (`is_locked=true`; see [onboarding-page.md](onboarding-page.md)). The MCP can't edit or delete a page later, so review the content before creating.
 8. **Echo:** the identifier, that it's private, which features are on, the seeded modules, and that the Start-here page exists.
+9. **Offer egg-hatch (optional).** For a brand-new product, offer to scaffold the full setup checklist with the egg-hatch sub-skill (domains, email, engineering, analytics, discoverability, ads, security, docs) as prioritized, module-grouped tasks. Only if the user accepts; never automatic. See [../../egg-hatch/SKILL.md](../../egg-hatch/SKILL.md).
 
 ## Create a ticket
 

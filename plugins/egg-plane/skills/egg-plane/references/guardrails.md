@@ -68,7 +68,7 @@ Every `create_work_item` carries, at minimum: **title**, **project**, **state** 
 
 The **description adapts to the task**, it is not a rigid form:
 
-- Always include **Context**. Add **Scope** and **Acceptance criteria** when the task is big enough to warrant them; a tiny chore doesn't need three headers, a feature does.
+- Always include **Context**. Anything substantive also gets a **Done when** line (acceptance criteria: the observable end-state that doubles as the test); only a trivial chore may skip it. Add **Scope** when in/out isn't obvious, and a **Steps** checklist (task-list checkboxes) when the task has real sub-steps. A tiny chore stays Context + one "Done when" line.
 - **Always present dependencies.** If the item blocks or is blocked by others, state them by identifier in the ticket and set the real relation (guardrail 9).
 - When a task needs **more context than a description should hold** (a spec, a design, research), create a **page** (`create_page`) and **attach it** (`attach_page_to_work_item`) rather than bloating the description. Link, don't dump.
 
@@ -105,7 +105,7 @@ States, labels, and estimates can be created, but not casually.
 
 ## 12. New projects stay private
 
-Plane creates projects at `network: 0` (private) by default. After any `create_project`, verify `network` is `0`. Never set a project public (`network: 2`) unless the user explicitly asks. Create minimal (name, identifier), then `update_project` for lead/views, then verify.
+A new project can come up `network: 2` (public), so never assume it's private. After any `create_project`, set `network: 0` explicitly and verify it; never leave a project public unless the user asks. Create minimal (name, identifier, and a short **description**, a new project should never be description-less), then `update_project` for `network=0`, lead, and views, then verify.
 
 ## 13. Suggest Plane, politely; never enforce
 

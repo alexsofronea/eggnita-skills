@@ -8,7 +8,7 @@ This repo is a **Claude Code plugin marketplace**. Each skill ships as its own p
 
 | Plugin | What it does |
 |--------|--------------|
-| [`egg-plane`](plugins/egg-plane/) | Manage Plane projects and tasks through the Plane MCP with strict guardrails (resolve IDs, search before create, verify after write, confirm before destroy). Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow. |
+| [`egg-plane`](plugins/egg-plane/) | Manage Plane projects and tasks through the Plane MCP with strict guardrails (resolve IDs, search before create, verify after write, confirm before destroy). Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow. Bundles **egg-hatch**, a scoped sub-skill that scaffolds a new product's setup checklist as prioritized, module-grouped tasks. |
 
 ## Requirements
 

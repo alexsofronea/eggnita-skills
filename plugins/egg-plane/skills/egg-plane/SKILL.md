@@ -15,6 +15,7 @@ Drive Plane through its MCP as a careful, helpful teammate, not a blunt automati
 - Intake/triage, comments and handoffs, workload checks, and status/sprint reports.
 - Turning a plan or PRD into a set of linked items (see [references/bulk-from-spec.md](references/bulk-from-spec.md)).
 - Capturing a task from a coding session, and politely suggesting Plane when tracking would help. See [references/coding-session-nudge.md](references/coding-session-nudge.md).
+- Scaffolding a whole new product's setup checklist (domains, email, engineering, analytics, discoverability, ads, security, docs) as prioritized, module-grouped tasks: the scoped **egg-hatch** sub-skill (invoke by name, or accept when offered). See [../egg-hatch/SKILL.md](../egg-hatch/SKILL.md).
 
 ## The guardrails (always on)
 
@@ -26,12 +27,12 @@ Non-negotiable. Full version with examples in [references/guardrails.md](referen
 4. **Echo after write.** One line, full identifiers, old→new: `EGG-3: state Todo→In Progress, +label backend`. No silent mutations.
 5. **Confirm before destroy or bulk.** `delete_*`, archive, `transfer_cycle_work_items`, multi-item ops: list affected identifiers, get an explicit yes.
 6. **Incremental over replace.** Use `manage_work_item_label`/`_assignee`/`manage_cycle_work_items`/`manage_module_work_items`. Never a full `labels=[...]`/`assignees=[...]` to change one.
-7. **Adaptive ticket, never a bare line.** Title, project, state, priority, assignee (resolved or explicit "unassigned"), and a description sized to the task. Always present dependencies; overflow big context to an attached page. See [references/ticket-template.md](references/ticket-template.md).
+7. **Adaptive ticket, never a bare line.** Title, project, state, priority, assignee, and a description sized to the task: Context always, a **Done when** line (acceptance = the test) on anything substantive, and a **Steps** checklist when there are real sub-steps. Always present dependencies; overflow big context to an attached page. See [references/ticket-template.md](references/ticket-template.md).
 8. **PQL, not dumps; flag truncation.** Filter server-side; `count_work_items` for totals; never present a paginated partial as the whole set.
 9. **Real relations by ID, never prose.** Parent, dependency, label, link, or attached page, all resolvable in Plane. Never "as discussed in the doc."
 10. **Free-tier aware, degrade gracefully.** Route around paywalls with the documented substitute. See [references/capability-map.md](references/capability-map.md).
 11. **Taxonomy is gated, not locked.** States/labels/estimates can be created, but confirm first, map ambiguous requests to the nearest existing value, and warn on drift.
-12. **New projects stay private.** Verify `network: 0` after any create; never publish unasked.
+12. **New projects: set private, give a description.** A new project can come up public, so set `network: 0` explicitly and verify; never publish unasked. Always add a short project description at create.
 13. **Suggest Plane, politely; never enforce.** Offer tracking warmly, respect the answer, keep the user's real work first.
 
 ## Free-tier reality (read once)

@@ -24,7 +24,7 @@ What the Plane MCP can and can't do on the free tier, verified by probing a live
 | Intake | `list_intake_work_items`, `create_intake_work_item`, `update_intake_work_item`, `retrieve_intake_work_item`, `delete_intake_work_item` | Triage queue. Create with `data={"issue": {...fields}}`. Triage via `update_intake_work_item(status=...)`: `1` accept (→ Backlog), `-1` decline, `0` snooze, `2` duplicate. |
 | Activity log | `list_work_item_activities` | Every change (state, assignee, field) with a timestamp and `epoch`. Free. It's the source for cycle-time worklogs, since native time tracking is paywalled. |
 | Members | `get_workspace_members`, `get_project_members` | **Returns bots.** Filter `is_bot = true`. |
-| Projects | `create_project`, `update_project`, `retrieve_project` | New projects default to `network: 0` (private). Keep it that way, and enable all features on setup (cycles, modules, views, pages, intake + a categories estimate). |
+| Projects | `create_project`, `update_project`, `retrieve_project` | A new project can come up `network: 2` (public) despite older assumptions, so **always set `network: 0` explicitly and verify** (don't assume private). Give it a short `description` at create. Enable all features on setup (cycles, modules, views, pages, intake + a categories estimate). |
 
 ### The six built-in dependency `relation_type` values
 
@@ -55,7 +55,7 @@ Also off (feature flags): `workflows` (state-transition rules), `parallel_cycles
 ## Behavioral gotchas (source of the guardrails)
 
 1. **A write can error yet persist.** A `create_project` returned HTTP 400 but the project existed, with default states/labels not seeded. Verify by re-reading after any write error. Never blind-retry a create.
-2. **`create_project` with extras can partially fail.** Creating with `project_lead` + view flags triggered the 400. Create minimal (name, identifier), then `update_project` for lead/views, then verify. New projects are private by default; confirm `network: 0`.
+2. **`create_project` with extras can partially fail.** Creating with `project_lead` + view flags triggered the 400. Create minimal (name, identifier, a short description), then `update_project` for lead/views, then verify. **Privacy is not reliably default:** a new project can come up `network: 2` (public), so set `network: 0` explicitly and confirm it; never assume private.
 3. **Members include bots.** Filter `is_bot`.
 4. **Sparse fields return null when not requested.** Null means "not requested," not "empty." Name `description_html`, `type_id`, `state`, `assignees`, `labels` explicitly when you need them.
 5. **Paginated responses truncate.** `list_*` returns `next_cursor` / `next_page_results`. When more pages exist, either page through or tell the user the result is truncated. Never imply a partial list is the whole set.

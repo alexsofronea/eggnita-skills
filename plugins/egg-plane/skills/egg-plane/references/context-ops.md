@@ -8,6 +8,8 @@ Every HTML body the skill sends (`comment_html`, a work item's `description_html
 
 Two related facts, same sanitizer: HTML comments (`<!-- ... -->`) are **stripped**, so there is no hidden-metadata channel in a comment; anything that must persist has to be visible text or a real field. Plain `@name` is also inert (see mentions below).
 
+**Task-list checkboxes survive.** Plane preserves `<ul data-type="taskList"><li data-type="taskItem" data-checked="false">…</li></ul>` and renders it as an interactive checklist (verified). Use it for a ticket's "Steps" (see [ticket-template.md](ticket-template.md)). The agent writes them unchecked and cannot tick them later, so they are a human aid, not a status signal.
+
 ## Comments (status and handoffs)
 
 - **Add:** `create_work_item_comment(project_id, work_item_id, comment_html, access="INTERNAL")`. Use for status updates, decisions, and session handoffs so the item carries its own history.
