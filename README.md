@@ -20,6 +20,8 @@ This repo is a **Claude Code plugin marketplace**. Each skill ships as its own p
 
 Add this marketplace once, then install the skills you want by name.
 
+Inside a Claude Code session, use the slash commands:
+
 ```bash
 # 1. Register the marketplace (one time)
 /plugin marketplace add alexsofronea/eggnita-skills
@@ -28,11 +30,23 @@ Add this marketplace once, then install the skills you want by name.
 /plugin install egg-<name>
 ```
 
-Run these inside Claude Code. After installing, the skill is available in your sessions.
+Or from a terminal, use the CLI (same result):
+
+```bash
+# 1. Register the marketplace (one time)
+claude plugin marketplace add alexsofronea/eggnita-skills
+
+# 2. Install a skill
+claude plugin install egg-<name>@eggnita-skills
+```
+
+After installing, the skill is available in your sessions.
 
 ## Update
 
 Skills here track the latest on `main`; there's no version number to manage. To pull the newest skills and updates:
+
+Inside a Claude Code session:
 
 ```bash
 # Refresh the marketplace listing
@@ -41,6 +55,18 @@ Skills here track the latest on `main`; there's no version number to manage. To 
 # Update an installed skill to the latest
 /plugin update egg-<name>
 ```
+
+Or from a terminal:
+
+```bash
+# Refresh the marketplace listing
+claude plugin marketplace update eggnita-skills
+
+# Update an installed skill to the latest
+claude plugin update egg-<name>@eggnita-skills
+```
+
+Updates apply on the next session — **restart Claude Code** after updating. A skill bundled inside another plugin (like **egg-hatch** inside `egg-plane`) comes with the parent: update `egg-plane` and you get both.
 
 ## Use
 
