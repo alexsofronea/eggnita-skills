@@ -40,7 +40,7 @@ Non-negotiable. Full version with examples in [references/guardrails.md](referen
 Full map in [references/capability-map.md](references/capability-map.md). The essentials:
 
 - **Works:** work items (typeless), states, labels, assignees, parent/child, the six built-in dependencies (auto-bidirectional), PQL + `count_work_items`, cycles, modules, milestones, pages (+ attach to item), estimates, comments, external links, file attachments (from a public URL), intake/triage. New projects are private by default.
-- **Paywalled, do not call (they 402/403):** `list_work_item_types` / `resolve_work_item_type` (custom types & epics), `list_work_item_relation_definitions` (custom relations "relates"/"duplicate"), `list_initiatives` (cross-project), worklogs / time tracking.
+- **Paywalled, do not call (they 402/403):** `list_work_item_types` / `resolve_work_item_type` (custom types & epics), `list_work_item_relation_definitions` (custom relations "relates"/"duplicate"), `list_initiatives` (cross-project), worklogs / time tracking. That 402 on `list_work_item_relation_definitions` gates only *custom* relations — the six **built-in dependencies still work**, so call `create_work_item_relation(relation_type="blocked_by")` directly and never downgrade a dependency to a text-only line.
 - **Absent:** view creation. Substitute: the named-query library in [references/pql-cookbook.md](references/pql-cookbook.md).
 - **Members gotcha:** member lists include bots. Filter `is_bot = true` before suggesting an assignee.
 

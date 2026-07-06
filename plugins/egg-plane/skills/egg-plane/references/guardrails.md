@@ -69,7 +69,7 @@ Every `create_work_item` carries, at minimum: **title**, **project**, **state** 
 The **description adapts to the task**, it is not a rigid form:
 
 - Always include **Context**. Anything substantive also gets a **Done when** line (acceptance criteria: the observable end-state that doubles as the test); only a trivial chore may skip it. Add **Scope** when in/out isn't obvious, and a **Steps** checklist (task-list checkboxes) when the task has real sub-steps. A tiny chore stays Context + one "Done when" line.
-- **Always present dependencies.** If the item blocks or is blocked by others, state them by identifier in the ticket and set the real relation (guardrail 9).
+- **Always present dependencies, as real relations.** If the item blocks or is blocked by others, create the real relation (`create_work_item_relation`, built-in `blocked_by`/`blocking`, works on the free tier) *and* name the blocker by identifier in the ticket text. The relation is mandatory; the text is an addition, never a substitute. A 402 from `list_work_item_relation_definitions` gates only custom relations and must not be read as "dependencies unavailable" — see guardrail 9 and [workflows.md](workflows.md).
 - When a task needs **more context than a description should hold** (a spec, a design, research), create a **page** (`create_page`) and **attach it** (`attach_page_to_work_item`) rather than bloating the description. Link, don't dump.
 
 Full guidance and examples: [ticket-template.md](ticket-template.md). No one-line tickets.
@@ -88,7 +88,7 @@ A link between items must exist in Plane, resolvable by identifier:
 
 - Sub-item → `parent`. Dependency → a built-in `relation_type`. Grouping → a label or a module/cycle. External context → `create_work_item_link` (URL) or `attach_page_to_work_item` (page).
 
-Never record a relationship as free text ("as discussed in section 6", "related to the other ticket"). If the reader can't click it in Plane, it isn't a relationship.
+Never record a relationship as free text ("as discussed in section 6", "related to the other ticket"). If the reader can't click it in Plane, it isn't a relationship. This holds for dependencies specifically: the built-in `blocked_by`/`blocking` relations work on the free tier, so create them — a paywall 402 on `list_work_item_relation_definitions` (custom relations only) is not licence to leave a dependency as a prose "Blocked by" line.
 
 ## 10. Free-tier aware, degrade gracefully
 

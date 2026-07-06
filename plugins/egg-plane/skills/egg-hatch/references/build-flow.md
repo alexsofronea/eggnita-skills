@@ -33,7 +33,7 @@ For each approved item:
 
 ## 6. Set dependencies
 
-Where one item blocks another (domain before email before marketing email; analytics before the activation metric; CI before preview envs), set the real relation with `create_work_item_relation(relation_type="blocked_by")`, and name the blocker by identifier in the description too (guardrail 9).
+Where one item blocks another (domain before email before marketing email; analytics before the activation metric; CI before preview envs), set the real relation with `create_work_item_relation(relation_type="blocked_by")` — this is **mandatory, not optional**. The built-in `blocked_by` works on the free tier: call it directly; do **not** call `list_work_item_relation_definitions` first (it 402s on custom relations, which is irrelevant here), and never treat that 402 as a reason to skip the relation or fall back to a text-only line. Also name the blocker by identifier in the description: guardrail 9 wants **both** — the real relation *and* the text.
 
 ## 7. Echo the summary
 

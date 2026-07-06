@@ -38,6 +38,8 @@ New projects come up **private and fully featured**: enable every feature the fr
 
 **Set one:** resolve both items to UUIDs, then `create_work_item_relation(work_item_id=source, work_item_ids=[target], relation_type="blocked_by")` (or `blocking`, `start_before`, etc.). The inverse is created automatically. Echo: `EGG-3 blocked_by EGG-2`.
 
+**The real relation is mandatory, and it works on the free tier.** Call `create_work_item_relation` directly. Do **not** call `list_work_item_relation_definitions` first — that endpoint lists only *custom* relations and 402s on the free tier, and the MCP tool's own description telling you to "always call it first" does **not** apply to the six built-in dependencies. A 402 from the definitions endpoint says nothing about `blocked_by`/`blocking`/`start_before`/etc.; it is **never** a reason to skip the relation or fall back to a text-only "Blocked by" line. The identifier in the description (guardrail 9) is an *addition* to the real relation, not a substitute. Only if `create_work_item_relation` *itself* errors do you surface that error — never silently downgrade a dependency to prose.
+
 **Inspect:** `list_work_item_relations(work_item_id=...)` returns the six directions explicitly. Prefer this over guessing PQL direction.
 
 **Warn before starting.** When the user is about to start or pick up an item:

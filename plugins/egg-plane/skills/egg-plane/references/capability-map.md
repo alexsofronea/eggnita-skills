@@ -35,7 +35,7 @@ What the Plane MCP can and can't do on the free tier, verified by probing a live
 | Tool / feature | Error | Consequence |
 |---|---|---|
 | `list_work_item_types`, `resolve_work_item_type` | 402 / "upgrade" | No custom types, no native Epics. Work items stay typeless. |
-| `list_work_item_relation_definitions` | 402 | Can't create custom relations (`relates to`, `duplicate`, `implements`). Only the six built-ins. |
+| `list_work_item_relation_definitions` | 402 | Can't create custom relations (`relates to`, `duplicate`, `implements`). **Scoped to custom relations only** — the six built-in dependencies still work, so never call this endpoint before a dependency, and never read its 402 as "dependencies unavailable." Call `create_work_item_relation(relation_type="blocked_by")` directly; never downgrade a dependency to a text-only line. |
 | `list_initiatives` and initiative ops | 403 / "upgrade" | No cross-project initiatives / rollups. |
 | `get_project_worklog_summary`, work logs | 402 | No time tracking. `is_time_tracking_enabled` is off. |
 
