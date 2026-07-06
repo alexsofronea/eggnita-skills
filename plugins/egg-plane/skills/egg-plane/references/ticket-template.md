@@ -37,6 +37,8 @@ Keep it tight. Real context beats filler. Mine a coding-session context for Cont
 
 For a small chore, one `<p>Context:</p>` line is enough.
 
+The HTML blocks here are indented for reading. **Minify before sending** (no whitespace between block tags), or Plane renders empty paragraphs and phantom bullets. See the "Writing HTML" note in [context-ops.md](context-ops.md).
+
 ## Worked example (feature)
 
 Title: `egg-plane: warn before starting a blocked item`

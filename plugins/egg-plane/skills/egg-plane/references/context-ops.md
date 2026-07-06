@@ -2,6 +2,12 @@
 
 Ways to attach context and read the team's load. All verified on the free tier. Guardrails still apply, especially "real relations by ID, never prose" (guardrail 9) and "echo after write" (guardrail 4).
 
+## Writing HTML (comments, descriptions, pages): minify it
+
+Every HTML body the skill sends (`comment_html`, a work item's `description_html`, a page's `description_html`) must be **minified: no whitespace between block tags**. Plane's editor turns any newline or space between `</p>` and `<p>`, or between `<li>` items, into an **empty paragraph or an empty bullet**, so a nicely-indented template renders with big gaps and phantom bullets (verified live). Butt the block tags together: `<ul><li>one</li><li>two</li></ul>`, never one tag per line. The HTML snippets shown in these references are spaced out for reading; strip the gaps before sending.
+
+Two related facts, same sanitizer: HTML comments (`<!-- ... -->`) are **stripped**, so there is no hidden-metadata channel in a comment; anything that must persist has to be visible text or a real field. Plain `@name` is also inert (see mentions below).
+
 ## Comments (status and handoffs)
 
 - **Add:** `create_work_item_comment(project_id, work_item_id, comment_html, access="INTERNAL")`. Use for status updates, decisions, and session handoffs so the item carries its own history.
@@ -17,6 +23,19 @@ Plain `@name` text does **nothing**; it's stored as literal characters and notif
 ```
 
 Verified live: this renders as a real highlighted `@display_name` mention and notifies the person; plain `@display_name` does not. So the rule is guardrail 1 again: resolve the UUID, never type a raw handle. This works in comments and in `description_html`.
+
+### Optional cycle-time note on Done
+
+When you move an item to **Done**, you may post a short "how long it was in flight" note. Native time tracking is paywalled, so this reads the free substitute: the activity log, which is ground truth, never a guess.
+
+- **Source:** `list_work_item_activities(project_id, work_item_id)`. Find the last `state` change into **In Progress** and the one into **Done**; the span between their timestamps is the time in progress.
+- **Post it as a new comment** (don't edit an existing one), a **single line only, no timestamps or epoch numbers**:
+
+  `🤖 Auto-logged by egg-plane · In Progress → Done in 1m 35s (cycle time, not effort).`
+
+- **Mark it as machine-generated.** MCP comments are attributed to the acting user, so without a marker a teammate reads it as hand-written. Lead with the bot marker (`🤖 Auto-logged by egg-plane`) so it's plainly the skill talking, not the person.
+- **Be honest about the number.** It's wall-clock between the two state changes, so it over-counts if the item sat open across a break; label it "cycle time, not effort." It only means anything if In Progress was set when work actually started, so tie it to the "warn before starting" step (see [workflows.md](workflows.md)).
+- **Optional and gated.** Offer it; don't spam every Done with it unless the team asked to track this.
 
 ## External links
 

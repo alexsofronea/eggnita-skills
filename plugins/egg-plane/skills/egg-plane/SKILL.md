@@ -47,7 +47,7 @@ Full map in [references/capability-map.md](references/capability-map.md). The es
 
 - **Core** (create project, create ticket, triage/search, dependencies + start-warning, epic-simulation, status/report): [references/workflows.md](references/workflows.md). New projects also get a public newcomer "Start here" page: [references/onboarding-page.md](references/onboarding-page.md).
 - **Structure** (cycles, modules, milestones, intake/triage): [references/structure-ops.md](references/structure-ops.md). **Module vs epic:** modules are the everyday "which product area?" bucket (a task's strong-default grouping); reserve epics for a finite feature that tasks converge into. They're independent axes; a task can have both.
-- **Context** (comments, external links, pages + attach, file attachments, workload view): [references/context-ops.md](references/context-ops.md).
+- **Context** (comments, external links, pages + attach, file attachments, workload view, optional cycle-time note on Done): [references/context-ops.md](references/context-ops.md). Every HTML body (comments, descriptions, pages) must be **minified**; Plane turns whitespace between block tags into empty paragraphs/bullets and strips HTML comments.
 - **Bulk** (a plan/PRD into linked items, plan-then-apply): [references/bulk-from-spec.md](references/bulk-from-spec.md).
 - **Capture** (coding-session nudge, polite suggestion): [references/coding-session-nudge.md](references/coding-session-nudge.md).
 

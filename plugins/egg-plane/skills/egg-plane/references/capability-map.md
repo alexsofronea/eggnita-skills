@@ -22,6 +22,7 @@ What the Plane MCP can and can't do on the free tier, verified by probing a live
 | External links | `create_work_item_link`, `list_work_item_links` | Attach a URL (repo, PR, doc) to an item. |
 | Attachments | `upload_work_item_attachment_from_url`, `read_work_item_attachment` | Source URL must be public. Verified: uploaded a file from a raw GitHub URL. |
 | Intake | `list_intake_work_items`, `create_intake_work_item`, `update_intake_work_item`, `retrieve_intake_work_item`, `delete_intake_work_item` | Triage queue. Create with `data={"issue": {...fields}}`. Triage via `update_intake_work_item(status=...)`: `1` accept (→ Backlog), `-1` decline, `0` snooze, `2` duplicate. |
+| Activity log | `list_work_item_activities` | Every change (state, assignee, field) with a timestamp and `epoch`. Free. It's the source for cycle-time worklogs, since native time tracking is paywalled. |
 | Members | `get_workspace_members`, `get_project_members` | **Returns bots.** Filter `is_bot = true`. |
 | Projects | `create_project`, `update_project`, `retrieve_project` | New projects default to `network: 0` (private). Keep it that way, and enable all features on setup (cycles, modules, views, pages, intake + a categories estimate). |
 
@@ -59,3 +60,4 @@ Also off (feature flags): `workflows` (state-transition rules), `parallel_cycles
 4. **Sparse fields return null when not requested.** Null means "not requested," not "empty." Name `description_html`, `type_id`, `state`, `assignees`, `labels` explicitly when you need them.
 5. **Paginated responses truncate.** `list_*` returns `next_cursor` / `next_page_results`. When more pages exist, either page through or tell the user the result is truncated. Never imply a partial list is the whole set.
 6. **Cycle state gates its operations.** A past-`end_date` cycle is "completed" and locked: you can't add items to it, and you can't `complete_cycle` it again. `transfer_cycle_work_items` needs the source completed first. So the only valid order is add → complete → transfer.
+7. **HTML bodies must be minified; HTML comments are stripped.** Whitespace between block tags becomes empty paragraphs/bullets in Plane's editor, and `<!-- ... -->` nodes are removed by the sanitizer (so no hidden metadata in a comment). Minify every `comment_html`/`description_html`. See [context-ops.md](context-ops.md).
