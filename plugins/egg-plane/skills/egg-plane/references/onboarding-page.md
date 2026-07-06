@@ -37,6 +37,12 @@ Replace the first `<em>` line with the project's own one-liner. Everything else 
 <li><strong>Connect the Plane MCP</strong> to your AI editor: <code>claude mcp add --transport http plane https://mcp.plane.so/http/mcp</code> (<a href="https://developers.plane.so/dev-tools/mcp-server">docs</a>). <em>Why: your coding agent reads and updates Plane without you leaving the editor.</em></li>
 <li><strong>Install the egg-plane skill</strong>: <code>/plugin marketplace add alexsofronea/eggnita-skills</code>, then <code>/plugin install egg-plane</code>. <em>Why: the agent then follows the team's guardrails (no duplicate tickets, real dependencies, clean descriptions) instead of raw API calls. Ask a maintainer for repo access if the install fails.</em></li>
 </ul>
+<h2>Cycles, modules &amp; epics (the building blocks)</h2>
+<ul>
+<li><strong>Module</strong>: a standing bucket for a part of the product (CLI, billing, docs…). <em>Use it when: tagging which area a task belongs to. A task usually sits in one, and modules never "finish."</em></li>
+<li><strong>Epic</strong>: one finite deliverable broken into sub-tasks, linked by parent/child and real <code>blocked_by</code> order. <em>Use it when: several tasks genuinely converge into one feature that will ship. Not for grouping a workstream; that's a module.</em></li>
+<li><strong>Cycle</strong>: a time-boxed sprint, what the team commits to this period. <em>Use it when: planning the current stretch. Pull work from modules and epics into it.</em></li>
+</ul>
 <h2>How we work here</h2>
 <ul>
 <li><strong>Tickets carry context</strong>: a short Context, plus Scope/Acceptance when it matters. <em>Why: anyone can pick one up cold.</em></li>
