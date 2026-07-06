@@ -24,7 +24,7 @@ Survey the product's context, propose the module set (confirm), create the modul
 
 ## Principles (on top of egg-plane's guardrails)
 
-1. **Survey first, generic never.** Read the product's context before creating anything, through a short adaptive dialogue (not a fixed questionnaire): infer from what the user gave, ask only the real gaps, and let each answer decide the follow-ups. The coverage map and how to run it are in [references/survey.md](references/survey.md).
+1. **Survey first, generic never.** Read the product's context before creating anything, through a short adaptive dialogue (not a fixed questionnaire): infer from what the user gave, surface only the real gaps — as selectable recommended answers, not open prompts, always with a talk-it-through escape — and let each answer decide the follow-ups. The coverage map and how to run it are in [references/survey.md](references/survey.md).
 2. **Full set by default, survey-trimmed.** Start from the complete module set; skip what the survey shows is truly irrelevant. Everything kept is created.
 3. **Priority carries relevance, not omission.** Use Plane's real values none / low / medium / high / urgent. The skill suggests; the user confirms. Minor-but-kept items sit at none or low.
 4. **Modules are the grouping.** One module per checklist domain (survey-derived), items tagged in. Gated creation, confirm the set (egg-plane guardrail 11).
