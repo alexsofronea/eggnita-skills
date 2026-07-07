@@ -109,6 +109,11 @@ Gate: the product has a public marketing site. Skip for purely internal tools wi
 - **OpenGraph + X cards, favicon, OG image**. Default: medium.
 - **Server-render or statically render primary content**: AI crawlers (GPTBot, ClaudeBot, PerplexityBot) do NOT run JavaScript. Default: high for AI visibility.
 
+**LLM-readable page twins (content pages — treat as foundational, not experimental):**
+
+- **Markdown alternate per content page**: serve a plain-Markdown twin of every content page (docs, articles, help) at a stable sibling URL — e.g. `/articles/{slug}.md` for the page at `/articles/{slug}/` — and advertise it in the head with `<link rel="alternate" type="text/markdown" href="…">`. Generate or update it at build time from the same source so it never drifts from the rendered page. Markdown is far cheaper for a model to parse than rendered HTML, and the alternate link is the machine-discoverable path to it. Default: high. Gate: the site has content pages (docs / articles / help).
+- **"Ask AI about this page" control** on content pages: a small menu offering **Copy as Markdown**, **View as Markdown** (opens the `.md` twin), and **Open in ChatGPT / Claude / Perplexity**, each launching a new chat pre-seeded to read and explain the page. The hand-off URLs pass a prompt plus the page URL as the `q` query param — `https://chatgpt.com/?q=…`, `https://claude.ai/new?q=…`, `https://www.perplexity.ai/search?q=…` — URL-encoding a string like `Read this page and explain it to me: <page URL>`. Default: medium. Gate: content pages exist.
+
 **Structured data (Schema.org JSON-LD):**
 
 - **Core types**: Organization + sameAs, WebSite, BreadcrumbList, Product/Offer, Article, SoftwareApplication, Review/AggregateRating, Event, LocalBusiness (still earn rich results). Default: medium.
@@ -116,14 +121,16 @@ Gate: the product has a public marketing site. Skip for purely internal tools wi
 
 **AI-crawler control (robots.txt):**
 
-- **Deliberate per-crawler policy**: training bots (GPTBot, Google-Extended, Applebot-Extended, CCBot) are separate from retrieval/citation bots (OAI-SearchBot, ChatGPT-User, Claude-User, Claude-SearchBot, PerplexityBot). Allow the retrieval bots for AI visibility; default-disallow Bytespider (documented non-compliance). Default: medium.
+- **Deliberate per-crawler policy**: training bots (GPTBot, Google-Extended, Applebot-Extended, CCBot) are separate from retrieval/citation bots (OAI-SearchBot, ChatGPT-User, Claude-User, Claude-SearchBot, PerplexityBot). Decide training and retrieval independently, then allow the retrieval bots for AI visibility; default-disallow Bytespider (documented non-compliance). Point `Sitemap:` at the index. Default: medium.
+- **Gotcha — named groups don't inherit from `*`.** A crawler obeys only its most-specific `User-agent` block and ignores `*` entirely, so a long per-bot allowlist is a maintenance trap: any `Disallow` you later add to `*` (a new private path) silently won't apply to a named bot. Prefer a permissive `*` and name only the bots that need *different* rules (e.g. a `Bytespider` block); if you keep an explicit allowlist for signalling, comment that it must stay in sync with `*`, and refresh stale tokens (`Claude-Web`, `anthropic-ai` are legacy). Default: medium.
+- **`Content-Signal` directive** (`Content-Signal: search=yes, ai-input=yes, ai-train=yes`): a near-free, machine-readable statement of intent, Cloudflare-originated (Sept 2025) and honored by a limited but growing set. Add as a hedge when the policy is "found and cited, yes." Default: low.
 
 **AEO / GEO (emerging; experiment, don't bet the roadmap):**
 
 - **Structure content for extraction**: answer-first, clear headings, visible dates, factual density (~44% of LLM citations come from the first 30% of a page). Default: medium.
 - **Add citations, statistics, quotations**: the one tactic with academic backing (+30–40% generative visibility). Default: medium.
 - **Genuine brand consistency + earned mentions** (not astroturf). Default: low, rising to medium.
-- **llms.txt**: near-zero real value today; add only as a near-free hedge / for AI coding-agent docs. Default: low.
+- **llms.txt / llms-full.txt**: a curated index (and a single concatenated-Markdown dump) of your content — the aggregate companion to the per-page Markdown twins above. Still low *proven* retrieval value today; add as a near-free hedge and as grounding for AI coding-agents. Default: low.
 - **Validate**: Rich Results Test + schema.org validator. Default: low.
 
 ## 8. Paid ads & acquisition
