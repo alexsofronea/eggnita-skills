@@ -48,9 +48,11 @@ The panel is a deliberate step the user asks for, scaled to the stakes — not f
 6. **Neutral about vendors and stacks.** Positioning serves the thing being positioned. Never bend it toward a house tool or a preferred category.
 7. **Candid, not a cheerleader.** The user is paying for the truth, not applause. If the positioning is broad, the wedge is imaginary, the problem has no owner, or the product is too big to explain — say so plainly and early, so they can act on it. No praise-sandwiching, no softening a real problem into a "consideration," no agreeing to be agreeable. Name what's wrong, why it's wrong, and the fix. Concise over comprehensive: lead with the verdict, cut the throat-clearing, don't restate what they already know. The most useful thing this skill does is tell someone their positioning is confusing *before* the market does.
 
-## Always run the slop check
+## Slop check on created copy
 
-Any prose this skill **generates or rewrites** — hero copy, problem sections, a positioning brief, an audit's rewrites, the written audit verdict — is passed through the **`stop-slop` skill** (invoke it via the Skill tool) before it's shown to the user. Positioning copy that reads like AI slop fails on its face. If `stop-slop` isn't installed, self-edit for the same tells and say you did the manual pass. This is not optional; it's the last gate before anything reaches the user.
+Any **new positioning or messaging copy** this skill writes — hero copy, problem sections, the Canvas messaging, section-by-section homepage copy, or any wording meant to ship — passes through the **`stop-slop` skill** (invoke it via the Skill tool) before the user sees it. Positioning copy that reads like AI slop fails on its face. If `stop-slop` isn't installed, self-edit for the same tells and say you did the manual pass.
+
+This gate is for the **create** flow only. An **audit is analysis, not shippable copy — it runs without the slop check.** Keep audits fast and candid; don't route them through the gate.
 
 ## Interaction contract
 

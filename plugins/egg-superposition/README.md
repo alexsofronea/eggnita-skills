@@ -35,4 +35,4 @@ It's built to be **candid, not a cheerleader** — if your positioning is broad,
 ## Requirements
 
 - **Claude Code.** Sub-agent dispatch (used by the panel) is built in.
-- **The `stop-slop` skill** (recommended). Every piece of copy the skill generates or rewrites, and every audit verdict, is passed through `stop-slop` to strip AI writing tells before you see it. If it isn't installed, the skill does the manual pass instead — but installing it makes the gate real. Available in the standard skill set; add it if your environment doesn't already have it.
+- **The `stop-slop` skill** (recommended). New positioning and messaging copy the skill writes passes through `stop-slop` to strip AI writing tells before you see it. This applies when it *creates* copy, not when it audits (audits run without the gate). If it isn't installed, the skill does the manual pass instead. Available in the standard skill set; add it if your environment doesn't already have it.

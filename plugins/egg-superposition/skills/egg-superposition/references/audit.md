@@ -15,7 +15,7 @@ Take something that exists — a homepage, landing page, tagline, pitch, bio —
 
 ## Output shape
 
-A teardown, not a wall of scores. **Be candid and concise** — lead with the blunt verdict, don't cushion a real problem, don't pad. If the positioning is fundamentally broken, the first line says so. Before presenting, run the written verdict and every rewrite through the **`stop-slop`** skill (SKILL.md: "Always run the slop check").
+A teardown, not a wall of scores. **Be candid and concise** — lead with the blunt verdict, don't cushion a real problem, don't pad. If the positioning is fundamentally broken, the first line says so. An audit runs *without* the slop-check gate (that's for created copy in [create.md](create.md)) — keep it fast.
 
 - **The 5-second verdict** — what a stranger takes away, and whether that's what it should be.
 - **Scorecard** — the dimension table, each with score + reason.

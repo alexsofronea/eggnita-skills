@@ -28,7 +28,7 @@ The completed Canvas **is the positioning brief** — the load-bearing artifact.
 
 Turn the Canvas into section-by-section copy, following the homepage anatomy in [patterns.md](patterns.md) (hero → social proof → problem → positioning/category line → capability blocks → differentiation → package → self-qualification → proof → process/CTA). Each argument column becomes a product section; the hero states a primary anchor and passes the 5-second test.
 
-Words are paste-ready, plain, customer-centric — built from the formulas in [exemplars.md](exemplars.md). **Color-code the copy to the Canvas** ([templates.md](templates.md#governance-color-code-the-copy)): every line must map to a cell, or it's off-strategy. **Run the copy through the `stop-slop` skill before presenting it** (SKILL.md: "Always run the slop check") — generated positioning copy that reads like AI slop is dead on arrival. Offer the panel; confirm.
+Words are paste-ready, plain, customer-centric — built from the formulas in [exemplars.md](exemplars.md). **Color-code the copy to the Canvas** ([templates.md](templates.md#governance-color-code-the-copy)): every line must map to a cell, or it's off-strategy. **Run the copy through the `stop-slop` skill before presenting it** (SKILL.md: "Slop check on created copy") — generated positioning copy that reads like AI slop is dead on arrival. Offer the panel; confirm.
 
 ## Stage 5 — Wireframe spec
 
