@@ -9,6 +9,7 @@ This repo is a **Claude Code plugin marketplace**. Each skill ships as its own p
 | Plugin | What it does |
 |--------|--------------|
 | [`egg-plane`](plugins/egg-plane/) | Manage Plane projects and tasks through the Plane MCP with strict guardrails (resolve IDs, search before create, verify after write, confirm before destroy). Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow. Bundles **egg-hatch**, a scoped sub-skill that scaffolds a new product's setup checklist as prioritized, module-grouped tasks. |
+| [`egg-superposition`](plugins/egg-superposition/) | Audit and create positioning and messaging for a product, company, or person. Scores an existing homepage/tagline against a distilled pattern library, or generates a positioning brief → homepage copy → wireframe spec. Includes an adversarial critic + ICP-persona panel that pressure-tests the work, scaled to the stakes. |
 
 ## Requirements
 

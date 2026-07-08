@@ -12,6 +12,12 @@
       "source": "./plugins/egg-plane",
       "description": "Manage Plane projects and tasks through the Plane MCP with strict guardrails (resolve IDs, search before create, verify after write, confirm before destroy). Free-tier aware, with epic-simulation, dependency tracking, and a coding-session capture flow.",
       "keywords": ["plane", "project-management", "task-management", "mcp"]
+    },
+    {
+      "name": "egg-superposition",
+      "source": "./plugins/egg-superposition",
+      "description": "Audit and create product, company, or personal positioning and messaging. Scores existing positioning against a distilled pattern library, or generates a positioning brief, section-by-section homepage copy, and a wireframe spec. Includes an adversarial critic + ICP-persona panel that pressure-tests the work, scaled to the stakes.",
+      "keywords": ["positioning", "messaging", "copywriting", "landing-page", "gtm", "eggnita"]
     }
   ]
 }
